@@ -106,7 +106,7 @@ import tarfile
 
 import numpy as np
 from six.moves import urllib
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 from tensorflow.python.framework import graph_util
@@ -824,7 +824,7 @@ def add_evaluation_step(result_tensor, ground_truth_tensor):
 
 
 def save_graph_to_file(sess, graph, graph_file_name):
-  output_graph_def = graph_util.convert_variables_to_constants(
+  output_graph_def = tf.compat.v1.graph_util.convert_variables_to_constants(
       sess, graph.as_graph_def(), [FLAGS.final_tensor_name])
   with gfile.FastGFile(graph_file_name, 'wb') as f:
     f.write(output_graph_def.SerializeToString())
